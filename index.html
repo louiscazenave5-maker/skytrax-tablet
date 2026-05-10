@@ -19,52 +19,114 @@ body{
     overflow:hidden;
 }
 
+/* TABLETTE */
+
 .tablette{
     position:relative;
     width:1200px;
     height:760px;
     aspect-ratio:16/10;
+
     border-radius:42px;
-    background:linear-gradient(145deg,#3b3b3b,#111);
+
+    background:
+    linear-gradient(145deg,#2a2a2a,#111);
+
     padding:10px;
+
+    border:2px solid rgba(255,255,255,0.35);
+
     box-shadow:
     0 0 80px rgba(0,0,0,0.8),
-    inset 0 0 4px rgba(255,255,255,0.08);
+    0 0 18px rgba(255,255,255,0.12),
+    inset 0 0 5px rgba(255,255,255,0.12);
+
+    overflow:visible;
 }
+
+/* CONTOUR BLANC PREMIUM */
 
 .tablette::before{
     content:"";
     position:absolute;
-    inset:0;
-    border-radius:42px;
-    padding:2px;
-    background:linear-gradient(to bottom,rgba(255,255,255,0.25),rgba(255,255,255,0.02));
-    -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-    -webkit-mask-composite:xor;
+    inset:-3px;
+
+    border-radius:45px;
+
+    border:2px solid rgba(255,255,255,0.45);
+
+    pointer-events:none;
+
+    box-shadow:
+    0 0 12px rgba(255,255,255,0.18),
+    inset 0 0 10px rgba(255,255,255,0.08);
 }
+
+/* PETIT BOUTON LATÉRAL */
+
+.tablette::after{
+    content:"";
+    position:absolute;
+
+    left:-8px;
+    top:175px;
+
+    width:8px;
+    height:90px;
+
+    border-radius:12px 0 0 12px;
+
+    background:
+    linear-gradient(
+        to bottom,
+        #e6e6e6,
+        #7c7c7c,
+        #d6d6d6
+    );
+
+    box-shadow:
+    0 0 6px rgba(255,255,255,0.3),
+    inset 0 0 3px rgba(0,0,0,0.45);
+}
+
+/* ECRAN */
 
 .screen{
     position:relative;
     width:100%;
     height:100%;
+
     border-radius:34px;
+
     overflow:hidden;
-    background:radial-gradient(circle at top left,#2d1f52,#0d0b17 70%);
+
+    background:
+    radial-gradient(circle at top left,#2d1f52,#0d0b17 70%);
+
     color:white;
+
+    box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.1),
+    inset 0 0 25px rgba(0,0,0,0.45);
 }
+
+/* CAMERA */
 
 .camera{
     position:absolute;
     top:14px;
     left:50%;
     transform:translateX(-50%);
+
     width:90px;
     height:18px;
+
     border-radius:30px;
+
     background:#090909;
+
     z-index:100;
+
     display:flex;
     justify-content:center;
     align-items:center;
@@ -72,10 +134,16 @@ body{
 
 .camera::before{
     content:"";
+
     width:10px;
     height:10px;
+
     border-radius:50%;
+
     background:#1f1f1f;
+
+    box-shadow:
+    inset 0 0 4px rgba(255,255,255,0.15);
 }
 
 /* STATUS BAR */
@@ -85,17 +153,24 @@ body{
     top:18px;
     left:40px;
     right:40px;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
+
     font-size:14px;
+
     opacity:0.9;
+
     z-index:50;
 }
 
 .statusbar span{
-    color:#7b61ff;
-    text-shadow:0 0 10px rgba(123,97,255,0.7);
+    color:#ffffff;
+
+    text-shadow:
+    0 0 8px rgba(255,255,255,0.55);
+
     letter-spacing:1px;
 }
 
@@ -108,10 +183,12 @@ body{
 #decryptPage{
     width:100%;
     height:100%;
+
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
+
     text-align:center;
 }
 
@@ -120,7 +197,9 @@ body{
     font-weight:700;
     letter-spacing:2px;
     margin-bottom:10px;
-    text-shadow:0 0 25px rgba(255,255,255,0.1);
+
+    text-shadow:
+    0 0 25px rgba(255,255,255,0.1);
 }
 
 .sub-status{
@@ -130,21 +209,42 @@ body{
     letter-spacing:3px;
 }
 
-.decrypt-btn{
-    padding:20px 42px;
+/* BOUTONS */
+
+.decrypt-btn,
+button{
+    padding:18px 42px;
+
     border:none;
+
     border-radius:22px;
-    background:linear-gradient(to right,#5c6cff,#7b61ff);
+
+    background:
+    linear-gradient(to right,#5c6cff,#7b61ff);
+
     color:white;
-    font-size:18px;
+
+    font-size:16px;
+
     cursor:pointer;
+
     transition:0.25s;
-    box-shadow:0 0 25px rgba(123,97,255,0.3);
+
+    box-shadow:
+    0 0 25px rgba(123,97,255,0.3);
 }
 
-.decrypt-btn:hover{
+.decrypt-btn{
+    font-size:18px;
+    padding:20px 42px;
+}
+
+.decrypt-btn:hover,
+button:hover{
     transform:scale(1.04);
-    box-shadow:0 0 35px rgba(123,97,255,0.5);
+
+    box-shadow:
+    0 0 35px rgba(123,97,255,0.5);
 }
 
 /* LOGIN */
@@ -160,59 +260,59 @@ body{
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
+
     width:360px;
+
     display:flex;
     flex-direction:column;
+
     gap:18px;
 }
 
 .login h1{
     text-align:center;
     margin-bottom:15px;
+
     font-size:38px;
     font-weight:600;
 }
 
 input{
     padding:18px;
+
     border:none;
     border-radius:20px;
+
     background:rgba(255,255,255,0.08);
+
     backdrop-filter:blur(10px);
+
     color:white;
+
     font-size:16px;
+
     outline:none;
+
     border:1px solid rgba(255,255,255,0.06);
 }
 
 input::placeholder{
-    color:rgba(255, 255, 255, 0.5);
-}
-
-button{
-    padding:18px;
-    border:none;
-    border-radius:20px;
-    background:linear-gradient(to right,#5c6cff,#7b61ff);
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.2s;
-}
-
-button:hover{
-    transform:scale(1.02);
+    color:rgba(255,255,255,0.5);
 }
 
 /* INTERFACE */
 
 #interface{
     display:none;
+
     width:100%;
     height:100%;
+
     justify-content:center;
     align-items:center;
+
     flex-direction:column;
+
     text-align:center;
 }
 
@@ -226,22 +326,38 @@ button:hover{
     font-size:120px;
     font-weight:800;
     letter-spacing:8px;
-    background:linear-gradient(to right,#ffffff,#c9c9ff);
+
+    background:
+    linear-gradient(to right,#ffffff,#c9c9ff);
+
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
-    text-shadow:0 0 40px rgba(124,97,255,0.35);
+
+    text-shadow:
+    0 0 40px rgba(124,97,255,0.35);
 }
+
+/* BARRE BAS */
 
 .homebar{
     position:absolute;
+
     bottom:12px;
     left:50%;
+
     transform:translateX(-50%);
+
     width:220px;
     height:7px;
+
     border-radius:20px;
-    background:rgb(255, 255, 255);
+
+    background:#ffffff;
+
     z-index:100;
+
+    box-shadow:
+    0 0 10px rgba(255,255,255,0.45);
 }
 
 </style>
@@ -328,7 +444,8 @@ const comptes = {
 
 function playSound(){
 
-    const sound = document.getElementById("buttonSound");
+    const sound =
+    document.getElementById("buttonSound");
 
     sound.volume = 0.1;
     sound.currentTime = 0;
@@ -342,10 +459,14 @@ function updateTime(){
 
     const now = new Date();
 
-    let hours = now.getHours().toString().padStart(2,"0");
-    let minutes = now.getMinutes().toString().padStart(2,"0");
+    const hours =
+    now.getHours().toString().padStart(2,"0");
 
-    document.getElementById("time").innerText = `${hours}:${minutes}`;
+    const minutes =
+    now.getMinutes().toString().padStart(2,"0");
+
+    document.getElementById("time").innerText =
+    `${hours}:${minutes}`;
 
 }
 
@@ -360,8 +481,11 @@ function openLogin(){
 
     setTimeout(() => {
 
-        document.getElementById("decryptPage").style.display = "none";
-        document.getElementById("loginPage").style.display = "block";
+        document.getElementById("decryptPage")
+        .style.display = "none";
+
+        document.getElementById("loginPage")
+        .style.display = "block";
 
     }, 250);
 
@@ -373,22 +497,30 @@ function login(){
 
     playSound();
 
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
+    const user =
+    document.getElementById("username").value;
+
+    const pass =
+    document.getElementById("password").value;
 
     if(comptes[user] && comptes[user] === pass){
 
         setTimeout(() => {
 
-            document.getElementById("loginPage").style.display = "none";
-            document.getElementById("interface").style.display = "flex";
+            document.getElementById("loginPage")
+            .style.display = "none";
+
+            document.getElementById("interface")
+            .style.display = "flex";
 
         }, 250);
 
     }else{
 
         setTimeout(() => {
+
             alert("Identifiants incorrects");
+
         }, 150);
 
     }
