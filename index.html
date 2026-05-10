@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Skytrax Tablet</title>
+
+<style>
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#0b0b0b;
+    font-family:Arial, Helvetica, sans-serif;
+    overflow:hidden;
+}
+
+.tablette{
+    position:relative;
+    width:1200px;
+    height:760px;
+    aspect-ratio:16/10;
+    border-radius:42px;
+    background:linear-gradient(145deg,#3b3b3b,#111);
+    padding:10px;
+    box-shadow:
+    0 0 80px rgba(0,0,0,0.8),
+    inset 0 0 4px rgba(255,255,255,0.08);
+}
+
+.tablette::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:42px;
+    padding:2px;
+    background:linear-gradient(to bottom,rgba(255,255,255,0.25),rgba(255,255,255,0.02));
+    -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+}
+
+.screen{
+    position:relative;
+    width:100%;
+    height:100%;
+    border-radius:34px;
+    overflow:hidden;
+    background:radial-gradient(circle at top left,#2d1f52,#0d0b17 70%);
+    color:white;
+}
+
+.camera{
+    position:absolute;
+    top:14px;
+    left:50%;
+    transform:translateX(-50%);
+    width:90px;
+    height:18px;
+    border-radius:30px;
+    background:#090909;
+    z-index:100;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.camera::before{
+    content:"";
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#1f1f1f;
+}
+
+/* STATUS BAR */
+
+.statusbar{
+    position:absolute;
+    top:18px;
+    left:40px;
+    right:40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+    opacity:0.9;
+    z-index:50;
+}
+
+.statusbar span{
+    color:#7b61ff;
+    text-shadow:0 0 10px rgba(123,97,255,0.7);
+    letter-spacing:1px;
+}
+
+.battery{
+    margin-right:1px;
+}
+
+/* PAGE DECRYPT */
+
+#decryptPage{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.main-title{
+    font-size:58px;
+    font-weight:700;
+    letter-spacing:2px;
+    margin-bottom:10px;
+    text-shadow:0 0 25px rgba(255,255,255,0.1);
+}
+
+.sub-status{
+    font-size:20px;
+    opacity:0.7;
+    margin-bottom:50px;
+    letter-spacing:3px;
+}
+
+.decrypt-btn{
+    padding:20px 42px;
+    border:none;
+    border-radius:22px;
+    background:linear-gradient(to right,#5c6cff,#7b61ff);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.25s;
+    box-shadow:0 0 25px rgba(123,97,255,0.3);
+}
+
+.decrypt-btn:hover{
+    transform:scale(1.04);
+    box-shadow:0 0 35px rgba(123,97,255,0.5);
+}
+
+/* LOGIN */
+
+#loginPage{
+    display:none;
+    width:100%;
+    height:100%;
+}
+
+.login{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:360px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.login h1{
+    text-align:center;
+    margin-bottom:15px;
+    font-size:38px;
+    font-weight:600;
+}
+
+input{
+    padding:18px;
+    border:none;
+    border-radius:20px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    color:white;
+    font-size:16px;
+    outline:none;
+    border:1px solid rgba(255,255,255,0.06);
+}
+
+input::placeholder{
+    color:rgba(255, 255, 255, 0.5);
+}
+
+button{
+    padding:18px;
+    border:none;
+    border-radius:20px;
+    background:linear-gradient(to right,#5c6cff,#7b61ff);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover{
+    transform:scale(1.02);
+}
+
+/* INTERFACE */
+
+#interface{
+    display:none;
+    width:100%;
+    height:100%;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+}
+
+.secret-title{
+    font-size:72px;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.secret-code{
+    font-size:120px;
+    font-weight:800;
+    letter-spacing:8px;
+    background:linear-gradient(to right,#ffffff,#c9c9ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 0 40px rgba(124,97,255,0.35);
+}
+
+.homebar{
+    position:absolute;
+    bottom:12px;
+    left:50%;
+    transform:translateX(-50%);
+    width:220px;
+    height:7px;
+    border-radius:20px;
+    background:rgb(255, 255, 255);
+    z-index:100;
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="buttonSound" src="sound.mp3"></audio>
+
+<div class="tablette">
+
+    <div class="camera"></div>
+
+    <div class="statusbar">
+        <span id="time">00:00</span>
+        <span class="battery">100%</span>
+    </div>
+
+    <div class="screen">
+
+        <div id="decryptPage">
+
+            <div class="main-title">
+                BLACK MARKET NODE
+            </div>
+
+            <div class="sub-status">
+                STATUS: ENCRYPTED
+            </div>
+
+            <button class="decrypt-btn" onclick="openLogin()">
+                Décrypter
+            </button>
+
+        </div>
+
+        <div id="loginPage">
+
+            <div id="loginBox" class="login">
+
+                <h1>Connexion</h1>
+
+                <input type="text" id="username" placeholder="Username">
+
+                <input type="password" id="password" placeholder="Mot de passe">
+
+                <button onclick="login()">
+                    Se connecter
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="interface">
+
+            <div class="secret-title">
+                Code secret
+            </div>
+
+            <div class="secret-code">
+                Skytrax
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="homebar"></div>
+
+</div>
+
+<script>
+
+/* COMPTES */
+
+const comptes = {
+    "admin":"1234",
+    "lspd":"police",
+    "staff":"azerty"
+};
+
+/* SON */
+
+function playSound(){
+
+    const sound = document.getElementById("buttonSound");
+
+    sound.volume = 0.1;
+    sound.currentTime = 0;
+    sound.play();
+
+}
+
+/* HEURE RÉELLE */
+
+function updateTime(){
+
+    const now = new Date();
+
+    let hours = now.getHours().toString().padStart(2,"0");
+    let minutes = now.getMinutes().toString().padStart(2,"0");
+
+    document.getElementById("time").innerText = `${hours}:${minutes}`;
+
+}
+
+updateTime();
+setInterval(updateTime, 1000);
+
+/* PAGE LOGIN */
+
+function openLogin(){
+
+    playSound();
+
+    setTimeout(() => {
+
+        document.getElementById("decryptPage").style.display = "none";
+        document.getElementById("loginPage").style.display = "block";
+
+    }, 250);
+
+}
+
+/* LOGIN */
+
+function login(){
+
+    playSound();
+
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    if(comptes[user] && comptes[user] === pass){
+
+        setTimeout(() => {
+
+            document.getElementById("loginPage").style.display = "none";
+            document.getElementById("interface").style.display = "flex";
+
+        }, 250);
+
+    }else{
+
+        setTimeout(() => {
+            alert("Identifiants incorrects");
+        }, 150);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
