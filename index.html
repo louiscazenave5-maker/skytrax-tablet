@@ -400,9 +400,9 @@ input::placeholder{
 
                 <h1>Connexion</h1>
 
-                <input type="text" id="username" placeholder="Username">
 
-                <input type="password" id="password" placeholder="Mot de passe">
+
+               <input type="password" id="password" placeholder="Mot de passe">
 
                 <button onclick="login()">
                     Se connecter
@@ -432,19 +432,15 @@ input::placeholder{
 
 <script>
 
-/* COMPTES */
+/* MOT DE PASSE */
 
-const comptes = {
-    "admin":"admin.access",
-    "lspd":"police"
-};
+const motDePasse = "admin";
 
 /* SON */
 
 function playSound(){
 
-    const sound =
-    document.getElementById("buttonSound");
+    const sound = document.getElementById("buttonSound");
 
     sound.volume = 0.1;
     sound.currentTime = 0;
@@ -458,14 +454,10 @@ function updateTime(){
 
     const now = new Date();
 
-    const hours =
-    now.getHours().toString().padStart(2,"0");
+    const hours = now.getHours().toString().padStart(2,"0");
+    const minutes = now.getMinutes().toString().padStart(2,"0");
 
-    const minutes =
-    now.getMinutes().toString().padStart(2,"0");
-
-    document.getElementById("time").innerText =
-    `${hours}:${minutes}`;
+    document.getElementById("time").innerText = `${hours}:${minutes}`;
 
 }
 
@@ -480,11 +472,8 @@ function openLogin(){
 
     setTimeout(() => {
 
-        document.getElementById("decryptPage")
-        .style.display = "none";
-
-        document.getElementById("loginPage")
-        .style.display = "block";
+        document.getElementById("decryptPage").style.display = "none";
+        document.getElementById("loginPage").style.display = "block";
 
     }, 250);
 
@@ -496,30 +485,21 @@ function login(){
 
     playSound();
 
-    const user =
-    document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
 
-    const pass =
-    document.getElementById("password").value;
-
-    if(comptes[user] && comptes[user] === pass){
+    if(pass === motDePasse){
 
         setTimeout(() => {
 
-            document.getElementById("loginPage")
-            .style.display = "none";
-
-            document.getElementById("interface")
-            .style.display = "flex";
+            document.getElementById("loginPage").style.display = "none";
+            document.getElementById("interface").style.display = "flex";
 
         }, 250);
 
     }else{
 
         setTimeout(() => {
-
-            alert("Identifiants incorrects");
-
+            alert("Mot de passe incorrect");
         }, 150);
 
     }
@@ -527,6 +507,5 @@ function login(){
 }
 
 </script>
-
 </body>
 </html>
